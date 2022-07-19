@@ -50,6 +50,6 @@ app.get('/users', (request, response) => {
   response.send(`o numero é o ${number} e o username é ${username}`)
 })
 
-const PORT = process.env.SERVER_PORT || 3000;
+const PORT = process.env.PORT;
 //this tells you through the terminal which port the server is in and confirms the server is up
 app.listen(PORT, () => console.log(`server is running on port ${PORT}`))
