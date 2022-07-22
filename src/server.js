@@ -1,6 +1,8 @@
 require("dotenv/config");
 require('express-async-errors');
 
+const knex = require("./database/knex")
+
 const migrationsRun = require("./database/sqlite/migrations")
 const AppError = require('./utils/AppError');
 const uploadConfig = require('./configs/upload')
@@ -52,4 +54,10 @@ app.get('/users', (request, response) => {
 
 const PORT = process.env.PORT;
 //this tells you through the terminal which port the server is in and confirms the server is up
-app.listen(PORT, () => console.log(`server is running on port ${PORT}`))
+// app.listen(PORT, () => console.log(`server is running on port ${PORT}`))
+async function doThing(){
+  const notes = await knex("movie_notes")
+  const stringNotes = JSON.stringify(notes)
+  app.listen(PORT, () => console.log(`server is having ${stringNotes}`))
+}
+doThing()

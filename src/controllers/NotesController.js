@@ -1,5 +1,5 @@
 const knex = require("../database/knex");
-const appError = require("../utils/AppError");
+const AppError = require("../utils/AppError");
 
 class NotesController{
   async create(request,response){
@@ -7,7 +7,7 @@ class NotesController{
     const user_id = request.user.id;
 
     if (rating > 5 || rating < 0 ){
-      throw new appError("apenas scores entre 0 e 5")
+      throw new AppError("apenas scores entre 0 e 5")
     }
 
     const note_id = await knex("movie_notes").insert({
@@ -33,6 +33,7 @@ class NotesController{
 
     const note = await knex("movie_notes").where({id}).first();
     const tags = await knex("tags").where({note_id :id}).orderBy("name");
+
     return response.json({
       ...note,
       tags
@@ -84,7 +85,6 @@ class NotesController{
 
       }
     });
-
     return response.json(notesWithTags);
   }
 }
